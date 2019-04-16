@@ -4,5 +4,4 @@ build:
 test:
 	build
 lint:
-	pip install cpplint
 	cpplint --filter=-legal/copyright,-build/include_subdir `ls *.c` `ls *.h`

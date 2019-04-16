@@ -1,8 +1,9 @@
 compiler:
 - gcc
-
+sudo: true
 script:
   - mkdir -p out
   - make build
-  - ./out/bno055
+  - make test
+  - sudo pip install cpplint
   - make lint
