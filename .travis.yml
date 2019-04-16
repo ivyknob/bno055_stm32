@@ -4,6 +4,5 @@ sudo: true
 script:
   - mkdir -p out
   - make build
-  - make test
   - sudo pip install cpplint
   - make lint
