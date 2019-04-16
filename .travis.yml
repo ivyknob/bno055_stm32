@@ -2,6 +2,7 @@ compiler:
 - gcc
 
 script:
+  - mkdir -p out
   - make build
   - ./out/bno055
   - make lint
