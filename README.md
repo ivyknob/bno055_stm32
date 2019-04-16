@@ -1,4 +1,5 @@
-# BNO055 STM32 library
+# BNO055 STM32 library [![Build Status](https://travis-ci.org/ivyknob/bno055_stm32.svg?branch=master)](https://travis-ci.org/ivyknob/bno055_stm32) [![Maintainability](https://api.codeclimate.com/v1/badges/121a150b18db278f559b/maintainability)](https://codeclimate.com/github/ivyknob/bno055_stm32/maintainability)
+
 
 ## WORK IN PROGRESS
 
