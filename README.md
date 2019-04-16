@@ -1,4 +1,5 @@
-# BNO055 STM32 library
+# BNO055 STM32 library [![Build Status](https://travis-ci.org/ivyknob/bno055_stm32.svg?branch=master)](https://travis-ci.org/ivyknob/bno055_stm32) [![Maintainability](https://api.codeclimate.com/v1/badges/121a150b18db278f559b/maintainability)](https://codeclimate.com/github/ivyknob/bno055_stm32/maintainability)
+
 
 ## WORK IN PROGRESS
 
@@ -9,10 +10,15 @@ It does support FreeRTOS, see `bno055.h` for `#define FREERTOS_ENABLED`.
 
 ## Usage
 
-Use CubeMX to init i2c in fast mode. Pass i2c handler to bno055_initI2C function and set work mode:
+Use CubeMX to init i2c in fast mode.
+
+Copy `bno055.c`, `bno055.h` and `bno055_stm32.h` to your project.
+Include `bno055_stm32.h`.
+Pass i2c handler to bno055_assignI2C function and set work mode:
 
 ```c
-bno055_initI2C(&hi2c1);
+bno055_assignI2C(&hi2c1)
+bno055_setup();
 bno055_setOperationModeNDOF();
 ```
 

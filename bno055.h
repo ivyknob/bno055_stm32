@@ -4,17 +4,9 @@
 #define FREERTOS_ENABLED true
 // #define FREERTOS_DISABLED true
 
-#include "i2c.h"
 #include <stdbool.h>
 #include <stdint.h>
-
-
-#ifdef FREERTOS_ENABLED
-#include "FreeRTOS.h"
-#include "task.h"
-#endif
-
-#include "cmsis_os.h"
+#include <stdio.h>
 
 #define START_BYTE 0xAA
 #define RESPONSE_BYTE 0xBB
@@ -231,16 +223,16 @@ enum bno055_system_error_t {
   BNO055_SYSTEM_ERROR_SENSOR_CONF_ERROR = 0x0A
 };
 
-extern I2C_HandleTypeDef *_bno055_i2c_port;
+void bno055_writeData(uint8_t reg, uint8_t data);
+void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len);
+void bno055_delay(int time);
 
 void bno055_reset();
 void bno055_setOperationModeConfig();
 void bno055_setOperationModeNDOF();
 void bno055_enableExternalCrystal();
 void bno055_disableExternalCrystal();
-void bno055_initI2C(I2C_HandleTypeDef *hi2c_device);
-
-void bno055_delay(int time);
+void bno055_setup();
 
 int8_t bno055_getTemp();
 
