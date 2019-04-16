@@ -9,10 +9,15 @@ It does support FreeRTOS, see `bno055.h` for `#define FREERTOS_ENABLED`.
 
 ## Usage
 
-Use CubeMX to init i2c in fast mode. Pass i2c handler to bno055_initI2C function and set work mode:
+Use CubeMX to init i2c in fast mode.
+
+Copy `bno055.c`, `bno055.h` and `bno055_stm32.h` to your project.
+Include `bno055_stm32.h`.
+Pass i2c handler to bno055_assignI2C function and set work mode:
 
 ```c
-bno055_initI2C(&hi2c1);
+bno055_assignI2C(&hi2c1)
+bno055_setup();
 bno055_setOperationModeNDOF();
 ```
 

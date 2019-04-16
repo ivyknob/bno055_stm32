@@ -1,0 +1,7 @@
+compiler:
+- gcc
+
+script:
+  - make build
+  - ./out/bno055
+  - make lint
