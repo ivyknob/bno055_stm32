@@ -1,8 +1,7 @@
 #ifndef BNO055_H_
 #define BNO055_H_
 
-#define FREERTOS_ENABLED true
-// #define FREERTOS_DISABLED true
+// #define FREERTOS_ENABLED true
 
 #include <stdbool.h>
 #include <stdint.h>

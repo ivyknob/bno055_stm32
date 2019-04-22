@@ -2,15 +2,16 @@
 #define BNO055_STM32_H_
 
 #include "i2c.h"
+
 #ifdef FREERTOS_ENABLED
 #include "FreeRTOS.h"
 #include "task.h"
-#endif
 #include "cmsis_os.h"
+#endif
 
 #include "bno055.h"
 
-extern I2C_HandleTypeDef *_bno055_i2c_port;
+I2C_HandleTypeDef *_bno055_i2c_port;
 
 void bno055_assignI2C(I2C_HandleTypeDef *hi2c_device) {
   _bno055_i2c_port = hi2c_device;
