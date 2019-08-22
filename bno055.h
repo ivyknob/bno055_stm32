@@ -227,6 +227,7 @@ void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len);
 void bno055_delay(int time);
 
 void bno055_reset();
+void bno055_setOperationMode(uint8_t mode);
 void bno055_setOperationModeConfig();
 void bno055_setOperationModeNDOF();
 void bno055_enableExternalCrystal();
