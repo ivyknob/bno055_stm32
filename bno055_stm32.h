@@ -1,6 +1,10 @@
 #ifndef BNO055_STM32_H_
 #define BNO055_STM32_H_
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 #include "i2c.h"
 
 #ifdef FREERTOS_ENABLED
@@ -97,5 +101,9 @@ void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len) {
   // HAL_I2C_Mem_Read(_bno055_i2c_port, BNO055_I2C_ADDR_LO<<1, reg,
   // I2C_MEMADD_SIZE_8BIT, data, len, 100);
 }
+
+#ifdef __cplusplus
+ }
+#endif
 
 #endif  // BNO055_STM32_H_
