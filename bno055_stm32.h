@@ -2,7 +2,7 @@
 #define BNO055_STM32_H_
 
 #ifdef __cplusplus
- extern "C" {
+  extern "C" {
 #endif
 
 #include "i2c.h"
@@ -103,7 +103,7 @@ void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len) {
 }
 
 #ifdef __cplusplus
- }
+  }
 #endif
 
 #endif  // BNO055_STM32_H_
