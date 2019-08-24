@@ -1,6 +1,9 @@
 #ifndef BNO055_H_
 #define BNO055_H_
 
+#ifdef __cplusplus
+  extern "C" {
+#endif
 // #define FREERTOS_ENABLED true
 
 #include <stdbool.h>
@@ -250,4 +253,7 @@ bno055_vector_t bno055_getVectorEuler();
 bno055_vector_t bno055_getVectorLinearAccel();
 bno055_vector_t bno055_getVectorGravity();
 
+#ifdef __cplusplus
+  }
+#endif
 #endif  // BNO055_H_
