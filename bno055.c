@@ -102,15 +102,15 @@ uint8_t bno055_getSystemError() {
   return tmp;
 }
 
-bno055_calibration_t bno055_getCalibration() {
+bno055_calibration_state_t bno055_getCalibrationState() {
   bno055_setPage(0);
-  bno055_calibration_t cal = {.sys = 0, .gyro = 0, .mag = 0, .accel = 0};
-  uint8_t calData = 0;
-  bno055_readData(BNO055_CALIB_STAT, &calData, 1);
-  cal.sys = (calData >> 6) & 0x03;
-  cal.gyro = (calData >> 4) & 0x03;
-  cal.accel = (calData >> 2) & 0x03;
-  cal.mag = calData & 0x03;
+  bno055_calibration_state_t cal = {.sys = 0, .gyro = 0, .mag = 0, .accel = 0};
+  uint8_t calState = 0;
+  bno055_readData(BNO055_CALIB_STAT, &calState, 1);
+  cal.sys = (calState >> 6) & 0x03;
+  cal.gyro = (calState >> 4) & 0x03;
+  cal.accel = (calState >> 2) & 0x03;
+  cal.mag = calState & 0x03;
   return cal;
 }
 

@@ -194,7 +194,7 @@ typedef struct {
   uint8_t gyro;
   uint8_t mag;
   uint8_t accel;
-} bno055_calibration_t;
+} bno055_calibration_state_t;
 
 typedef struct {
   double x;
@@ -245,7 +245,7 @@ uint8_t bno055_getSystemError();
 int16_t bno055_getSWRevision();
 
 bno055_self_test_result_t bno055_getSelfTestResult();
-bno055_calibration_t bno055_getCalibration();
+bno055_calibration_state_t bno055_getCalibrationState();
 bno055_vector_t bno055_getVectorAccelerometer();
 bno055_vector_t bno055_getVectorMagnetometer();
 bno055_vector_t bno055_getVectorGyroscope();
