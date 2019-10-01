@@ -8,7 +8,13 @@ uint16_t magScale = 16;
 
 void bno055_setPage(uint8_t page) { bno055_writeData(BNO055_PAGE_ID, page); }
 
-void bno055_setOperationMode(uint8_t mode) {
+bno055_opmode_t bno055_getOperationMode() {
+  bno055_opmode_t mode;
+  bno055_readData(BNO055_OPR_MODE, &mode, 1);
+  return mode;
+}
+
+void bno055_setOperationMode(bno055_opmode_t mode) {
   bno055_writeData(BNO055_OPR_MODE, mode);
   bno055_delay(30);
 }

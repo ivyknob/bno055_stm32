@@ -164,7 +164,7 @@ enum bno055_system_status_t {
   BNO055_SYSTEM_STATUS_FUSION_ALOG_NOT_RUNNING = 0x06
 };
 
-enum bno055_opmode_t {  // BNO-55 operation modes
+typedef enum {  // BNO-55 operation modes
   BNO055_OPERATION_MODE_CONFIG = 0x00,
   // Sensor Mode
   BNO055_OPERATION_MODE_ACCONLY,
@@ -180,7 +180,7 @@ enum bno055_opmode_t {  // BNO-55 operation modes
   BNO055_OPERATION_MODE_M4G,
   BNO055_OPERATION_MODE_NDOF_FMC_OFF,
   BNO055_OPERATION_MODE_NDOF  // 0x0C
-};
+} bno055_opmode_t;
 
 typedef struct {
   uint8_t mcuState;
@@ -230,7 +230,8 @@ void bno055_readData(uint8_t reg, uint8_t *data, uint8_t len);
 void bno055_delay(int time);
 
 void bno055_reset();
-void bno055_setOperationMode(uint8_t mode);
+bno055_opmode_t bno055_getOperationMode();
+void bno055_setOperationMode(bno055_opmode_t mode);
 void bno055_setOperationModeConfig();
 void bno055_setOperationModeNDOF();
 void bno055_enableExternalCrystal();
