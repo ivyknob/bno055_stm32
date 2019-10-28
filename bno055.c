@@ -156,9 +156,9 @@ void bno055_setCalibrationData(bno055_calibration_data_t calData) {
   memcpy(buffer + 18, &calData.radius.accel, 2);
   memcpy(buffer + 20, &calData.radius.mag, 2);
 
-  for (uint8_t i=0; i<22; i++) {
-	  // TODO: create multibytes write
-	  bno055_writeData(BNO055_ACC_OFFSET_X_LSB+i, buffer[i]);
+  for (uint8_t i=0; i < 22; i++) {
+    // TODO(oliv4945): create multibytes write
+    bno055_writeData(BNO055_ACC_OFFSET_X_LSB+i, buffer[i]);
   }
 
   bno055_setOperationMode(operationMode);
