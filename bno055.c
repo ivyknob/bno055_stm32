@@ -1,4 +1,5 @@
 #include "bno055.h"
+#include <string.h>
 
 uint16_t accelScale = 100;
 uint16_t tempScale = 1;
@@ -8,7 +9,13 @@ uint16_t magScale = 16;
 
 void bno055_setPage(uint8_t page) { bno055_writeData(BNO055_PAGE_ID, page); }
 
-void bno055_setOperationMode(uint8_t mode) {
+bno055_opmode_t bno055_getOperationMode() {
+  bno055_opmode_t mode;
+  bno055_readData(BNO055_OPR_MODE, &mode, 1);
+  return mode;
+}
+
+void bno055_setOperationMode(bno055_opmode_t mode) {
   bno055_writeData(BNO055_OPR_MODE, mode);
   bno055_delay(30);
 }
@@ -102,16 +109,59 @@ uint8_t bno055_getSystemError() {
   return tmp;
 }
 
-bno055_calibration_t bno055_getCalibration() {
+bno055_calibration_state_t bno055_getCalibrationState() {
   bno055_setPage(0);
-  bno055_calibration_t cal = {.sys = 0, .gyro = 0, .mag = 0, .accel = 0};
-  uint8_t calData = 0;
-  bno055_readData(BNO055_CALIB_STAT, &calData, 1);
-  cal.sys = (calData >> 6) & 0x03;
-  cal.gyro = (calData >> 4) & 0x03;
-  cal.accel = (calData >> 2) & 0x03;
-  cal.mag = calData & 0x03;
+  bno055_calibration_state_t cal = {.sys = 0, .gyro = 0, .mag = 0, .accel = 0};
+  uint8_t calState = 0;
+  bno055_readData(BNO055_CALIB_STAT, &calState, 1);
+  cal.sys = (calState >> 6) & 0x03;
+  cal.gyro = (calState >> 4) & 0x03;
+  cal.accel = (calState >> 2) & 0x03;
+  cal.mag = calState & 0x03;
   return cal;
+}
+
+
+bno055_calibration_data_t bno055_getCalibrationData() {
+  bno055_calibration_data_t calData;
+  uint8_t buffer[22];
+  bno055_opmode_t operationMode = bno055_getOperationMode();
+  bno055_setOperationModeConfig();
+  bno055_setPage(0);
+
+  bno055_readData(BNO055_ACC_OFFSET_X_LSB, buffer, 22);
+
+  // Assumes little endian processor
+  memcpy(&calData.offset.accel, buffer, 6);
+  memcpy(&calData.offset.mag, buffer + 6, 6);
+  memcpy(&calData.offset.gyro, buffer + 12, 6);
+  memcpy(&calData.radius.accel, buffer + 18, 2);
+  memcpy(&calData.radius.mag, buffer + 20, 2);
+
+  bno055_setOperationMode(operationMode);
+
+  return calData;
+}
+
+void bno055_setCalibrationData(bno055_calibration_data_t calData) {
+  uint8_t buffer[22];
+  bno055_opmode_t operationMode = bno055_getOperationMode();
+  bno055_setOperationModeConfig();
+  bno055_setPage(0);
+
+  // Assumes litle endian processor
+  memcpy(buffer, &calData.offset.accel, 6);
+  memcpy(buffer + 6, &calData.offset.mag, 6);
+  memcpy(buffer + 12, &calData.offset.gyro, 6);
+  memcpy(buffer + 18, &calData.radius.accel, 2);
+  memcpy(buffer + 20, &calData.radius.mag, 2);
+
+  for (uint8_t i=0; i < 22; i++) {
+    // TODO(oliv4945): create multibytes write
+    bno055_writeData(BNO055_ACC_OFFSET_X_LSB+i, buffer[i]);
+  }
+
+  bno055_setOperationMode(operationMode);
 }
 
 bno055_vector_t bno055_getVector(uint8_t vec) {
