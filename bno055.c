@@ -173,7 +173,7 @@ bno055_vector_t bno055_getVector(uint8_t vec) {
   bno055_setPage(0);
   uint8_t buffer[8];    // Quarternion need 8 bytes
 
-  if(vec == BNO055_VECTOR_QUARTERNION)
+  if (vec == BNO055_VECTOR_QUARTERNION)
     bno055_readData(vec, buffer, 8);
   else
     bno055_readData(vec, buffer, 6);
@@ -193,8 +193,8 @@ bno055_vector_t bno055_getVector(uint8_t vec) {
     scale = quaScale;
   }
 
-  bno055_vector_t xyz = {.w=0, .x = 0, .y = 0, .z = 0};
-  if(vec == BNO055_VECTOR_QUARTERNION) {
+  bno055_vector_t xyz = {.w = 0, .x = 0, .y = 0, .z = 0};
+  if (vec == BNO055_VECTOR_QUARTERNION) {
     xyz.w = (int16_t)((buffer[1] << 8) | buffer[0]) / scale;
     xyz.x = (int16_t)((buffer[3] << 8) | buffer[2]) / scale;
     xyz.y = (int16_t)((buffer[5] << 8) | buffer[4]) / scale;
