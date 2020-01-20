@@ -18,11 +18,7 @@ bno055_opmode_t bno055_getOperationMode() {
 
 void bno055_setOperationMode(bno055_opmode_t mode) {
   bno055_writeData(BNO055_OPR_MODE, mode);
-  if (mode == BNO055_OPERATION_MODE_CONFIG) {
-    bno055_delay(19);
-  } else {
-    bno055_delay(7);
-  }
+  bno055_delay(30);
 }
 
 void bno055_setOperationModeConfig() {
