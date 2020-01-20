@@ -6,7 +6,6 @@ uint16_t tempScale = 1;
 uint16_t angularRateScale = 16;
 uint16_t eulerScale = 16;
 uint16_t magScale = 16;
-uint16_t quaScale = (1<<14);    // 2^14
 
 void bno055_setPage(uint8_t page) { bno055_writeData(BNO055_PAGE_ID, page); }
 
@@ -18,7 +17,11 @@ bno055_opmode_t bno055_getOperationMode() {
 
 void bno055_setOperationMode(bno055_opmode_t mode) {
   bno055_writeData(BNO055_OPR_MODE, mode);
-  bno055_delay(30);
+  if (mode == BNO055_OPERATION_MODE_CONFIG) {
+    bno055_delay(19);
+  } else {
+    bno055_delay(7);
+  }
 }
 
 void bno055_setOperationModeConfig() {
@@ -167,12 +170,9 @@ void bno055_setCalibrationData(bno055_calibration_data_t calData) {
 
 bno055_vector_t bno055_getVector(uint8_t vec) {
   bno055_setPage(0);
-  uint8_t buffer[8];    // Quarternion need 8 bytes
+  uint8_t buffer[6];
 
-  if(vec == BNO055_VECTOR_QUARTERNION)
-    bno055_readData(vec, buffer, 8);
-  else
-    bno055_readData(vec, buffer, 6);
+  bno055_readData(vec, buffer, 6);
 
   double scale = 1;
 
@@ -185,21 +185,12 @@ bno055_vector_t bno055_getVector(uint8_t vec) {
     scale = angularRateScale;
   } else if (vec == BNO055_VECTOR_EULER) {
     scale = eulerScale;
-  } else if (vec == BNO055_VECTOR_QUARTERNION) {
-    scale = quaScale;
   }
 
-  bno055_vector_t xyz = {.w=0, .x = 0, .y = 0, .z = 0};
-  if(vec == BNO055_VECTOR_QUARTERNION) {
-    xyz.w = (int16_t)((buffer[1] << 8) | buffer[0]) / scale;
-    xyz.x = (int16_t)((buffer[3] << 8) | buffer[2]) / scale;
-    xyz.y = (int16_t)((buffer[5] << 8) | buffer[4]) / scale;
-    xyz.z = (int16_t)((buffer[7] << 8) | buffer[6]) / scale;
-  } else {
-    xyz.x = (int16_t)((buffer[1] << 8) | buffer[0]) / scale;
-    xyz.y = (int16_t)((buffer[3] << 8) | buffer[2]) / scale;
-    xyz.z = (int16_t)((buffer[5] << 8) | buffer[4]) / scale;
-  }
+  bno055_vector_t xyz = {.x = 0, .y = 0, .z = 0};
+  xyz.x = (int16_t)((buffer[1] << 8) | buffer[0]) / scale;
+  xyz.y = (int16_t)((buffer[3] << 8) | buffer[2]) / scale;
+  xyz.z = (int16_t)((buffer[5] << 8) | buffer[4]) / scale;
 
   return xyz;
 }
@@ -221,7 +212,4 @@ bno055_vector_t bno055_getVectorLinearAccel() {
 }
 bno055_vector_t bno055_getVectorGravity() {
   return bno055_getVector(BNO055_VECTOR_GRAVITY);
-}
-bno055_vector_t bno055_getVectorQuarternion() {
-  return bno055_getVector(BNO055_VECTOR_QUARTERNION);
 }
