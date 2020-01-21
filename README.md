@@ -22,11 +22,18 @@ bno055_setup();
 bno055_setOperationModeNDOF();
 ```
 
-Then use bno055_getVectorEuler to receive data:
+Then use bno055_getVectorEuler to receive euler angle data:
 
 ```c
 bno055_vector_t v = bno055_getVectorEuler();
 printf("Heading: %.2f Roll: %.2f Pitch: %.2f\r\n", v.x, v.y, v.z);
+```
+
+Or use bno055_getVectorQuarternion to receive quarternion data:
+
+```c
+bno055_vector_t v = bno055_getVectorQuarternion();
+printf("W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", v.w, v.x, v.y, v.z);
 ```
 
 ### Full example
@@ -138,6 +145,8 @@ int main(void)
     /* USER CODE END WHILE */
     bno055_vector_t v = bno055_getVectorEuler();
     printf("Heading: %.2f Roll: %.2f Pitch: %.2f\r\n", v.x, v.y, v.z);
+    v = bno055_getVectorQuarternion();
+    printf("W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", v.w, v.x, v.y, v.z);
     HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
@@ -213,4 +222,13 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
+```
+
+### Output
+
+```
+Heading: 292.81 Roll: 50.00 Pitch: 175.62
+W: 0.35 X: 0.45 Y: -0.78 Z: 0.23
+Heading: 292.81 Roll: 50.00 Pitch: 175.62
+W: 0.35 X: 0.45 Y: -0.78 Z: 0.23
 ```
