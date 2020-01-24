@@ -16,6 +16,7 @@
 
 #define BNO055_I2C_ADDR_HI 0x29
 #define BNO055_I2C_ADDR_LO 0x28
+#define BNO055_I2C_ADDR    BNO055_I2C_ADDR_LO
 
 #define BNO055_READ_TIMEOUT 100
 #define BNO055_WRITE_TIMEOUT 10
@@ -219,6 +220,7 @@ typedef struct {
 } bno055_calibration_data_t;
 
 typedef struct {
+  double w;
   double x;
   double y;
   double z;
@@ -229,6 +231,7 @@ typedef enum {
   BNO055_VECTOR_MAGNETOMETER = 0x0E,   // Default: uT
   BNO055_VECTOR_GYROSCOPE = 0x14,      // Default: rad/s
   BNO055_VECTOR_EULER = 0x1A,          // Default: degrees
+  BNO055_VECTOR_QUARTERNION = 0x20,    // No units
   BNO055_VECTOR_LINEARACCEL = 0x28,    // Default: m/s²
   BNO055_VECTOR_GRAVITY = 0x2E         // Default: m/s²
 } bno055_vector_type_t;
@@ -277,6 +280,7 @@ bno055_vector_t bno055_getVectorGyroscope();
 bno055_vector_t bno055_getVectorEuler();
 bno055_vector_t bno055_getVectorLinearAccel();
 bno055_vector_t bno055_getVectorGravity();
+bno055_vector_t bno055_getVectorQuarternion();
 
 #ifdef __cplusplus
   }
