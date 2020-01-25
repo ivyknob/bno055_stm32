@@ -44,6 +44,20 @@ bno055_vector_t v = bno055_getVectorQuaternion();
 printf("W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", v.w, v.x, v.y, v.z);
 ```
 
+To remap axis, use bno055_setAxisMap in config mode (refer to datasheet page 24):
+
+```c
+bno055_axis_map_t axis = {
+  .x = BNO055_AXIS_X,
+  .x_sign = BNO055_AXIS_SIGN_POSITIVE,
+  .y = BNO055_AXIS_Y,
+  .y_sign = BNO055_AXIS_SIGN_POSITIVE,
+  .z = BNO055_AXIS_Z,
+  .z_sign = BNO055_AXIS_SIGN_POSITIVE
+};
+bno055_setAxisMap(axis);
+```
+
 ### Full example
 
 ```c

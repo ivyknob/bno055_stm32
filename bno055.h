@@ -226,6 +226,15 @@ typedef struct {
   double z;
 } bno055_vector_t;
 
+typedef struct {
+	uint8_t x;
+	uint8_t x_sign;
+	uint8_t y;
+	uint8_t y_sign;
+	uint8_t z;
+	uint8_t z_sign;
+} bno055_axis_map_t;
+
 typedef enum {
   BNO055_VECTOR_ACCELEROMETER = 0x08,  // Default: m/s²
   BNO055_VECTOR_MAGNETOMETER = 0x0E,   // Default: uT
@@ -248,6 +257,17 @@ enum bno055_system_error_t {
   BNO055_SYSTEM_ERROR_ACCEL_PWR_MODE_NOT_AVAILABLE = 0x08,
   BNO055_SYSTEM_ERROR_FUSION_ALGO_CONF_ERROR = 0x09,
   BNO055_SYSTEM_ERROR_SENSOR_CONF_ERROR = 0x0A
+};
+
+enum bno055_axis_map_representation_t {
+	BNO055_AXIS_X = 0x00,
+	BNO055_AXIS_Y = 0x01,
+	BNO055_AXIS_Z = 0x02
+};
+
+enum bno055_axis_map_sign_t {
+	BNO055_AXIS_SIGN_POSITIVE = 0x00,
+	BNO055_AXIS_SIGN_NEGATIVE = 0x01
 };
 
 void bno055_writeData(uint8_t reg, uint8_t data);
@@ -281,6 +301,7 @@ bno055_vector_t bno055_getVectorEuler();
 bno055_vector_t bno055_getVectorLinearAccel();
 bno055_vector_t bno055_getVectorGravity();
 bno055_vector_t bno055_getVectorQuaternion();
+void bno055_setAxisMap(bno055_axis_map_t axis);
 
 #ifdef __cplusplus
   }
