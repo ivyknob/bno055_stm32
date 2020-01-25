@@ -227,12 +227,12 @@ typedef struct {
 } bno055_vector_t;
 
 typedef struct {
-	uint8_t x;
-	uint8_t x_sign;
-	uint8_t y;
-	uint8_t y_sign;
-	uint8_t z;
-	uint8_t z_sign;
+  uint8_t x;
+  uint8_t x_sign;
+  uint8_t y;
+  uint8_t y_sign;
+  uint8_t z;
+  uint8_t z_sign;
 } bno055_axis_map_t;
 
 typedef enum {
@@ -260,14 +260,14 @@ enum bno055_system_error_t {
 };
 
 enum bno055_axis_map_representation_t {
-	BNO055_AXIS_X = 0x00,
-	BNO055_AXIS_Y = 0x01,
-	BNO055_AXIS_Z = 0x02
+  BNO055_AXIS_X = 0x00,
+  BNO055_AXIS_Y = 0x01,
+  BNO055_AXIS_Z = 0x02
 };
 
 enum bno055_axis_map_sign_t {
-	BNO055_AXIS_SIGN_POSITIVE = 0x00,
-	BNO055_AXIS_SIGN_NEGATIVE = 0x01
+  BNO055_AXIS_SIGN_POSITIVE = 0x00,
+  BNO055_AXIS_SIGN_NEGATIVE = 0x01
 };
 
 void bno055_writeData(uint8_t reg, uint8_t data);

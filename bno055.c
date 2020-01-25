@@ -231,9 +231,8 @@ bno055_vector_t bno055_getVectorQuaternion() {
 }
 
 void bno055_setAxisMap(bno055_axis_map_t axis) {
-	uint8_t axisRemap = (axis.z << 4) | (axis.y << 2) | (axis.x);
-	uint8_t axisMapSign = (axis.x_sign << 2) | (axis.y_sign << 1) | (axis.z_sign);
-
-	bno055_writeData(BNO055_AXIS_MAP_CONFIG, axisRemap);
-	bno055_writeData(BNO055_AXIS_MAP_SIGN, axisMapSign);
+  uint8_t axisRemap = (axis.z << 4) | (axis.y << 2) | (axis.x);
+  uint8_t axisMapSign = (axis.x_sign << 2) | (axis.y_sign << 1) | (axis.z_sign);
+  bno055_writeData(BNO055_AXIS_MAP_CONFIG, axisRemap);
+  bno055_writeData(BNO055_AXIS_MAP_SIGN, axisMapSign);
 }
