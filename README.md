@@ -37,11 +37,25 @@ bno055_vector_t v = bno055_getVectorEuler();
 printf("Heading: %.2f Roll: %.2f Pitch: %.2f\r\n", v.x, v.y, v.z);
 ```
 
-Or use bno055_getVectorQuarternion to receive quarternion data:
+Or use bno055_getVectorQuaternion to receive quaternion data:
 
 ```c
-bno055_vector_t v = bno055_getVectorQuarternion();
+bno055_vector_t v = bno055_getVectorQuaternion();
 printf("W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", v.w, v.x, v.y, v.z);
+```
+
+To remap axis, use bno055_setAxisMap in config mode (refer to datasheet page 24):
+
+```c
+bno055_axis_map_t axis = {
+  .x = BNO055_AXIS_X,
+  .x_sign = BNO055_AXIS_SIGN_POSITIVE,
+  .y = BNO055_AXIS_Y,
+  .y_sign = BNO055_AXIS_SIGN_POSITIVE,
+  .z = BNO055_AXIS_Z,
+  .z_sign = BNO055_AXIS_SIGN_POSITIVE
+};
+bno055_setAxisMap(axis);
 ```
 
 ### Full example
@@ -153,7 +167,7 @@ int main(void)
     /* USER CODE END WHILE */
     bno055_vector_t v = bno055_getVectorEuler();
     printf("Heading: %.2f Roll: %.2f Pitch: %.2f\r\n", v.x, v.y, v.z);
-    v = bno055_getVectorQuarternion();
+    v = bno055_getVectorQuaternion();
     printf("W: %.2f X: %.2f Y: %.2f Z: %.2f\r\n", v.w, v.x, v.y, v.z);
     HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
