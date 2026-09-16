@@ -5,7 +5,7 @@
   extern "C" {
 #endif
 
-#include "i2c.h"
+#include "stm32f7xx_hal_i2c.h"
 
 #ifdef FREERTOS_ENABLED
 #include "FreeRTOS.h"
@@ -84,11 +84,13 @@ void bno055_writeData(uint8_t reg, uint8_t data) {
     printf("HAL_I2C_STATE_BUSY_RX_LISTEN\r\n");
   } else if (state == HAL_I2C_STATE_ABORT) {
     printf("HAL_I2C_STATE_ABORT\r\n");
-  } else if (state == HAL_I2C_STATE_TIMEOUT) {
-    printf("HAL_I2C_STATE_TIMEOUT\r\n");
-  } else if (state == HAL_I2C_STATE_ERROR) {
-    printf("HAL_I2C_STATE_ERROR\r\n");
   }
+
+//    else if (state == HAL_I2C_STATE_TIMEOUT) {
+//    printf("HAL_I2C_STATE_TIMEOUT\r\n");
+//  } else if (state == HAL_I2C_STATE_ERROR) {
+//    printf("HAL_I2C_STATE_ERROR\r\n");
+//  }
   // while (HAL_I2C_GetState(_bno055_i2c_port) != HAL_I2C_STATE_READY) {}
   // return;
 }
